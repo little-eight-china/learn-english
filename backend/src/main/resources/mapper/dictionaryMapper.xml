@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="bdbk.learn.mapper.DictionaryMapper">
+
+    <resultMap id="DictionaryMap" type="bdbk.learn.model.Dictionary">
+        <id column="ID" jdbcType="BIGINT" property="id" />
+        <result column="dictionary_from" jdbcType="VARCHAR" property="dictionaryFrom" />
+        <result column="dictionary_type" jdbcType="VARCHAR" property="dictionaryType" />
+        <result column="dictionary_spell" jdbcType="VARCHAR" property="dictionarySpell" />
+        <result column="dictionary_comment" jdbcType="VARCHAR" property="dictionaryComment" />
+        <result column="dictionary_pcronunciation" jdbcType="VARCHAR" property="dictionaryPronunciation" />
+    </resultMap>
+
+
+    <select id="selectAllByDictionarySpell" resultType="bdbk.learn.model.Dictionary">
+        SELECT * from dictionary
+        WHERE dictionary_spell IN
+        (SELECT dictionary_spell from
+        (SELECT dictionary_spell from dictionary
+        where dictionary_spell >= #{dictionarySpell}
+        and dictionary_type = #{dictionaryType}
+        ORDER BY dictionary_spell LIMIT 0,#{size}) as t)
+        and dictionary_type = #{dictionaryType}
+    </select>
+
+</mapper>
