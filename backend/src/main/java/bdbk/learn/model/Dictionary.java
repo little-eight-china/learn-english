@@ -15,4 +15,12 @@ public class Dictionary {
     private String dictionarySpell;
     private String dictionaryComment;
     private String dictionaryPronunciation;
+
+    @FunctionalInterface
+    interface Converter<F, T> {
+        T convert(F from);
+    }
+
+    Converter<String, Integer> converter = (from) -> Integer.valueOf(from);
+    Integer converted = converter.convert("123");
 }
