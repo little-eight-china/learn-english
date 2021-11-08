@@ -11,5 +11,5 @@ server:
   port: 80
 mybatis-plus:
   type-aliases-package: bdbk.learn.model
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
